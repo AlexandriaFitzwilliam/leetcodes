@@ -6,63 +6,57 @@
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
 
+        #checks if both lists are empty
         if not list1 and not list2:
             return
+        #checks if just one list is empty, if so returns the other head node
         elif not list1 and list2:
             return list2
         elif list1 and not list2:
             return list1
 
+        #markers to keep track where current location in node chain we're at
         list1_mark = list1
         list2_mark = list2
 
+
+        #sets first head node for our new merged list
         if list1_mark.val <= list2_mark.val:
             head_node = ListNode(val=list1.val)
-            #change new position holder to list1.next
             list1_mark = list1_mark.next
         else:
             head_node = ListNode(val=list2.val)
-            #change new position holder to list2.next
             list2_mark = list2_mark.next
-        #change current node.next to be new_node
-        #repeat until list.next=None
 
+
+        #keep track of where we are in our merged list
         cur = head_node
-        print(f'head_node={head_node}')
 
+        #loop through and checks if there are still nodes to look at
         while list1_mark and list2_mark:
-            print()
-            print(f'list1_mark={list1_mark}')
-            print(f'list2_mark={list2_mark}')
-            print(f'cur={cur}')
             if list1_mark.val <= list2_mark.val:
                 new_node = ListNode(val=list1_mark.val)
                 list1_mark = list1_mark.next
             else:
                 new_node = ListNode(val=list2_mark.val)
                 list2_mark = list2_mark.next
+            #now we know where the next pointer should go, so we assign it
             cur.next = new_node
+            #moves our current location to end of current list
             cur = new_node
 
+        #at this point, one of the given list has no more markers
+        #so loops through both list (if they exist) to add the rest of the nodes to our new merged list
         while list1_mark:
-            print()
-            print('inside while list1_mark')
-            print(f'list1_mark={list1_mark}')
-            print(f'cur={cur}')
             new_node = ListNode(val=list1_mark.val)
             list1_mark = list1_mark.next
             cur.next = new_node
             cur = new_node
 
         while list2_mark:
-            print()
-            print('inside while list2_mark')
-            print(f'list2_mark={list2_mark}')
-            print(f'cur={cur}')
             new_node = ListNode(val=list2_mark.val)
             list2_mark = list2_mark.next
             cur.next = new_node
             cur = new_node
 
-        print(f'before return head_node={head_node}')
         return head_node
