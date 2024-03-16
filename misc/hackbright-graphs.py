@@ -13,6 +13,14 @@ class Node:
     def __repr__(self):
         
         return f'<Node data={self.data} adjacent={self.adjacent}>'
+    
+
+    def print_all_adjacent(self):
+        """Prints all nodes adjacent to node."""
+
+        for node in self.adjacent:
+            print(node)
+
 
 
 class Graph:
@@ -62,6 +70,7 @@ graph1.add_node(node6)
 graph1.connect_nodes(node5, node6)
 
 graph1.print_all()
+node5.print_all_adjacent()
 
 
 
